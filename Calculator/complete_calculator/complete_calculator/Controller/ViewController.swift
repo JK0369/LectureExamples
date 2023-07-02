@@ -23,21 +23,41 @@ private extension ViewController {
         
         view.addSubview(calculatorView)
         NSLayoutConstraint.activate([
-            calculatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            calculatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calculatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            calculatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             calculatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             calculatorView.topAnchor.constraint(equalTo: view.topAnchor),
         ])
         
-        var val = 0
+        var total = 0.0
         
         calculatorView.didTapCell = { value in
-//            print(value)
-            val += value
+            print(value)
+//            switch CalculatorNumber(string: value) {
+//            case .number:
+//
+//            case .oper:
+//                switch value {
+//                case "+":
+//
+//                case "-":
+//
+//                case "*":
+//
+//                case "/":
+//
+//                }
+//            case .result:
+//
+//            }
         }
         
-        calculatorView.didTapButton = {
-            print("tap!", val)
+        calculatorView.didTapBackButton = {
+            print("value=", total)
         }
+    }
+    
+    func calculate(lastTotal: Double, value: String) {
+        
     }
 }

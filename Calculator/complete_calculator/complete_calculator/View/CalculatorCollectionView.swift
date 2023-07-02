@@ -20,16 +20,17 @@ final class CalculatorView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    private let inputTextField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "1+2+3"
+    private let inputLabel: UILabel = {
+        let field = UILabel()
         field.textColor = .black
         field.translatesAutoresizingMaskIntoConstraints = false
+        field.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return field
     }()
-    private let confirmButton: UIButton = {
+    private let backButton: UIButton = {
         let button = UIButton()
-        button.setTitle("확인", for: .normal)
+        button.setTitle("<", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 36)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.blue, for: .highlighted)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -47,9 +48,9 @@ final class CalculatorView: UIView {
         return view
     }()
     
-    private let dataSource = (0...9).map(String.init).reversed() as [String]
-    var didTapCell: ((Int) -> ())?
-    var didTapButton: (() -> ())?
+    private var dataSource = [String]()
+    var didTapCell: ((String) -> ())?
+    var didTapBackButton: (() -> ())?
     
     init() {
         super.init(frame: .zero)
@@ -64,13 +65,15 @@ final class CalculatorView: UIView {
 
 private extension CalculatorView {
     func setup() {
+        dataSource = CalculatorNumber.allCases.flatMap(\.value)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
-        confirmButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         
         addSubview(stackView)
-        stackView.addArrangedSubview(inputTextField)
-        stackView.addArrangedSubview(confirmButton)
+        stackView.addArrangedSubview(inputLabel)
+        stackView.addArrangedSubview(backButton)
         addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -87,7 +90,10 @@ private extension CalculatorView {
     }
     
     @objc func tapButton() {
-        didTapButton?()
+        if inputLabel.text != nil, inputLabel.text != "" {
+            inputLabel.text?.removeLast()
+        }
+        didTapBackButton?()
     }
 }
 
@@ -97,14 +103,41 @@ extension CalculatorView: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CalculatorCell else { return UICollectionViewCell() }
-        cell.prepare(numberText: dataSource[indexPath.item])
+        
+        let value = dataSource[indexPath.item]
+        switch CalculatorNumber(string: value) {
+        case .number:
+            cell.prepare(numberText: value, color: .systemGray)
+        case .oper:
+            cell.prepare(numberText: value, color: .systemOrange)
+        case .result:
+            cell.prepare(numberText: value, color: .systemRed)
+        default:
+            return cell
+        }
+        
         return cell
     }
 }
 
 extension CalculatorView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didTapCell?(Int(dataSource[indexPath.item])!)
+        let value = dataSource[indexPath.item]
+        guard CalculatorNumber(string: value) != .result else {
+            didTapCell?(value)
+            return
+        }
+        
+        if
+            let last = inputLabel.text?.last,
+                CalculatorNumber(string: value) == .oper,
+                CalculatorNumber(string: String(last)) == .oper
+        {
+             return
+        }
+        
+        inputLabel.text = (inputLabel.text ?? "") + value
+        didTapCell?(value)
     }
 }
 

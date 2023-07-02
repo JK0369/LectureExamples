@@ -18,6 +18,7 @@
 		4A5B08B32A4B2E81007BB697 /* complete_calculatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5B08B22A4B2E81007BB697 /* complete_calculatorUITestsLaunchTests.swift */; };
 		4A7774432A516151001FEFE7 /* CalculatorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7774422A516151001FEFE7 /* CalculatorCollectionView.swift */; };
 		4A7774452A516157001FEFE7 /* CalculatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7774442A516157001FEFE7 /* CalculatorCell.swift */; };
+		4A7774472A5175F4001FEFE7 /* CalculatorNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7774462A5175F4001FEFE7 /* CalculatorNumber.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		4A5B08B22A4B2E81007BB697 /* complete_calculatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = complete_calculatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4A7774422A516151001FEFE7 /* CalculatorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCollectionView.swift; sourceTree = "<group>"; };
 		4A7774442A516157001FEFE7 /* CalculatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCell.swift; sourceTree = "<group>"; };
+		4A7774462A5175F4001FEFE7 /* CalculatorNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorNumber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 		4A7774412A516134001FEFE7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4A7774462A5175F4001FEFE7 /* CalculatorNumber.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			files = (
 				4A5B08942A4B2E80007BB697 /* ViewController.swift in Sources */,
 				4A5B08902A4B2E80007BB697 /* AppDelegate.swift in Sources */,
+				4A7774472A5175F4001FEFE7 /* CalculatorNumber.swift in Sources */,
 				4A7774432A516151001FEFE7 /* CalculatorCollectionView.swift in Sources */,
 				4A7774452A516157001FEFE7 /* CalculatorCell.swift in Sources */,
 				4A5B08922A4B2E80007BB697 /* SceneDelegate.swift in Sources */,

@@ -14,10 +14,10 @@ private enum Metric {
 final class CalculatorCell: UICollectionViewCell {
     private let numberLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 12)
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 30)
         label.textAlignment = .center
-        label.backgroundColor = .systemOrange
+        label.backgroundColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,11 +34,12 @@ final class CalculatorCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        prepare(numberText: nil)
+        prepare(numberText: nil, color: .gray)
     }
     
-    func prepare(numberText: String?) {
+    func prepare(numberText: String?, color: UIColor) {
         numberLabel.text = numberText
+        numberLabel.backgroundColor = color
     }
 }
 
